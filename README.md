@@ -1,1 +1,1 @@
-# UseContext and useId hooks are applied in this project
+# useContext hook are applied in this project
