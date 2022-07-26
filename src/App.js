@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { MyComponent } from './components/MyComponent';
 import { ContextTest } from './context/ContextTest';
 import { AppRouter } from './router/AppRouter';
 
@@ -25,6 +26,7 @@ function App() {
         setUser
       }}>
         <AppRouter/>
+        <MyComponent/>
       </ContextTest.Provider>
     </div>
   );
