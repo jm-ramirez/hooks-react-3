@@ -1,11 +1,29 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import { ContextTest } from './context/ContextTest';
 import { AppRouter } from './router/AppRouter';
 
 function App() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    //Primera vez que se carga el componente
+    let user_local = JSON.parse(localStorage.getItem('user'));
+
+    setUser(user_local);
+  }, []);
+
+  useEffect(() => {
+    //Cada vez que se actualice el estado usuario, se guarda en el local storage.
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
+  
   return (
     <div className="App">
-      <ContextTest.Provider value='Web'>
+      <ContextTest.Provider value={{
+        user,
+        setUser
+      }}>
         <AppRouter/>
       </ContextTest.Provider>
     </div>

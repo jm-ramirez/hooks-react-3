@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
 import { About } from '../components/About';
 import { Articles } from '../components/Articles';
 import { Contact } from '../components/Contact';
 import { Index } from '../components/Index';
 import { Login } from '../components/Login';
+import { ContextTest } from '../context/ContextTest';
 
 export const AppRouter = () => {
+    const { user, setUser } = useContext(ContextTest)
     return (
         <BrowserRouter>
             {/* NAVIGATION MENU */}
@@ -28,9 +30,26 @@ export const AppRouter = () => {
                         <li>
                             <NavLink to='/contact'>Contact</NavLink>
                         </li>
-                        <li>
-                            <NavLink to='/login'>Login</NavLink>
-                        </li>
+                            {user.hasOwnProperty('nick') && user?.nick !== null ?
+                                (<>
+                                    <li>
+                                        <NavLink to='/'>{user.nick}</NavLink>
+                                    </li>
+
+                                    <li>
+                                        <a href='#' onClick={e => {
+                                            e.preventDefault();
+                                            setUser({});
+                                        }}>Logout</a>
+                                    </li>
+                                </>)
+                            :
+                                (
+                                    <li>
+                                        <NavLink to='/login'>Login</NavLink>
+                                    </li>
+                                )
+                            }
                     </ul>
                 </nav>
             </header>
